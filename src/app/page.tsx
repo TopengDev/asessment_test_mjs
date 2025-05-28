@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
    Table,
    TableBody,
@@ -8,7 +9,10 @@ import {
    TableHeader,
    TableRow,
 } from '@/components/ui/table';
-import { getUsers } from '@/services/user/actions';
+import { deleteUser, getUsers } from '@/services/user/actions';
+import { FaRegTrashAlt } from 'react-icons/fa';
+import { FaRegEdit } from 'react-icons/fa';
+import { IoMdAddCircleOutline } from 'react-icons/io';
 
 export default async function Home({
    searchParams,
@@ -30,8 +34,16 @@ export default async function Home({
 
    return (
       <div className="w-screen h-screen overflow-y-scroll flex items-center justify-center">
-         <div className=" w-full sm:max-w-[640px] lg:max-w-[768px] 2xl:max-w-[1024px]">
-            <Table>
+         <div className=" w-full sm:max-w-[640px] lg:max-w-[768px] 2xl:max-w-[1024px] overflow-y-scroll">
+            <div className="w-full flex items-center justify-between">
+               <a href="/add-user">
+                  <Button className="hover:cursor-pointer flex items-center gap-2">
+                     <IoMdAddCircleOutline color="white" />
+                     Create New User
+                  </Button>
+               </a>
+            </div>
+            <Table className="overflow-y-scroll">
                <TableCaption>
                   {' '}
                   Page {pageInfo.page} of {pageInfo.totalPages} with a total of{' '}
@@ -43,6 +55,7 @@ export default async function Home({
                      <TableHead>Full Name</TableHead>
                      <TableHead className="text-right">Birth Date</TableHead>
                      <TableHead>Address</TableHead>
+                     <TableHead>Actions</TableHead>
                   </TableRow>
                </TableHeader>
                <TableBody>
@@ -72,6 +85,33 @@ export default async function Home({
                            }${
                               user.address?.street ? user.address?.street : ''
                            }`}
+                        </TableCell>
+                        <TableCell>
+                           <div className="flex items-center gap-2">
+                              <form
+                                 action={deleteUser}
+                                 className="hover:cursor-pointer"
+                              >
+                                 <input
+                                    type="hidden"
+                                    name="id"
+                                    value={user.id}
+                                 />
+                                 <Button
+                                    variant="destructive"
+                                    type="submit"
+                                    className="hover:cursor-pointer"
+                                 >
+                                    <FaRegTrashAlt color="white" />
+                                 </Button>
+                              </form>
+
+                              <Button className="hover:cursor-pointer">
+                                 <a href={`/${user.id}`}>
+                                    <FaRegEdit color="white" />
+                                 </a>
+                              </Button>
+                           </div>
                         </TableCell>
                      </TableRow>
                   ))}

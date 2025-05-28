@@ -20,7 +20,8 @@ export const createUser = async (data: TNewUser & { address: TNewAddress }) => {
       });
    }
 
-   revalidatePath('/users');
+   revalidatePath('/');
+   return { status: 200, msg: 'Successfully created user' };
 };
 
 export const editUser = async (data: TEditUser & { address: TNewAddress }) => {
@@ -34,14 +35,18 @@ export const editUser = async (data: TEditUser & { address: TNewAddress }) => {
       .set(data.address)
       .where(eq(address.user_id, data.id as number));
 
-   revalidatePath('/users');
+   revalidatePath('/');
+   return { status: 200, msg: 'Successfully updated user' };
 };
 
-export const deleteUser = async (data: { id: number }) => {
-   await db.delete(user).where(eq(user.id, data.id));
-   await db.delete(address).where(eq(address.user_id, data.id));
+export const deleteUser = async (formData: FormData) => {
+   const id = Number(formData.get('id'));
+   if (!id) return;
 
-   revalidatePath('/users');
+   await db.delete(user).where(eq(user.id, id));
+   await db.delete(address).where(eq(address.user_id, id));
+
+   revalidatePath('/');
 };
 
 export const getUsers = async ({
