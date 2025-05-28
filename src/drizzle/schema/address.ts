@@ -46,6 +46,15 @@ export const NewAddressSchema = createInsertSchema(address).pick({
    province: true,
    postal_code: true,
 });
+export const EditAddressSchema = createInsertSchema(address).pick({
+   id: true,
+   user_id: true,
+   street: true,
+   city: true,
+   province: true,
+   postal_code: true,
+});
 
 export type TAddress = z.infer<typeof AddressSchema>;
 export type TNewAddress = z.infer<typeof NewAddressSchema>;
+export type TEditAddress = z.infer<typeof EditAddressSchema>;

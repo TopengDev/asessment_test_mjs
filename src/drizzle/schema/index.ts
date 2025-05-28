@@ -1,2 +1,2 @@
-export { user } from './user';
+export { user, userRelations } from './user';
 export { address, addressRelations } from './address';
