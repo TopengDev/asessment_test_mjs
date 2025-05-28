@@ -10,15 +10,12 @@ import {
    TableRow,
 } from '@/components/ui/table';
 import { deleteUser, getUsers } from '@/services/user/actions';
+import Link from 'next/link';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaRegEdit } from 'react-icons/fa';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 
-export default async function Home({
-   searchParams,
-}: {
-   searchParams: { page?: string; limit?: string };
-}) {
+export default async function Home({ searchParams }: any) {
    const params = await searchParams;
 
    const page = parseInt(params?.page || '1');
@@ -36,12 +33,12 @@ export default async function Home({
       <div className="w-screen h-screen overflow-y-scroll flex items-center justify-center">
          <div className=" w-full sm:max-w-[640px] lg:max-w-[768px] 2xl:max-w-[1024px] overflow-y-scroll">
             <div className="w-full flex items-center justify-between">
-               <a href="/add-user">
+               <Link href="/add-user">
                   <Button className="hover:cursor-pointer flex items-center gap-2">
                      <IoMdAddCircleOutline color="white" />
                      Create New User
                   </Button>
-               </a>
+               </Link>
             </div>
             <Table className="overflow-y-scroll">
                <TableCaption>
@@ -107,9 +104,9 @@ export default async function Home({
                               </form>
 
                               <Button className="hover:cursor-pointer">
-                                 <a href={`/${user.id}`}>
+                                 <Link href={`/${user.id}`}>
                                     <FaRegEdit color="white" />
-                                 </a>
+                                 </Link>
                               </Button>
                            </div>
                         </TableCell>
@@ -118,7 +115,7 @@ export default async function Home({
                </TableBody>
             </Table>
             <div className="flex items-center justify-between mt-4 gap-4">
-               <a
+               <Link
                   href={`?page=${Math.max(1, page - 1)}&limit=${limit}`}
                   className={`py-2 px-4 flex items-center justify-center rounded-lg ${
                      page === 1
@@ -127,9 +124,9 @@ export default async function Home({
                   } transition-all duration-100`}
                >
                   Prev
-               </a>
+               </Link>
 
-               <a
+               <Link
                   href={`?page=${Math.min(
                      page + 1,
                      pageInfo.totalPages,
@@ -141,7 +138,7 @@ export default async function Home({
                   } transition-all duration-100`}
                >
                   Next
-               </a>
+               </Link>
             </div>
          </div>
       </div>

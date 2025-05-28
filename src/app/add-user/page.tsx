@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,7 +20,7 @@ import { createUser, getUserById } from '@/services/user/actions';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export const formSchema = z.object({
+const formSchema = z.object({
    firstname: z
       .string()
       .min(2, { message: 'Firstname must be at least 2 characters long' })

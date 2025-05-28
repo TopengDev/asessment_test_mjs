@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,7 +20,7 @@ import { editUser, getUserById } from '@/services/user/actions';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export const formSchema = z.object({
+const formSchema = z.object({
    id: z.number().optional(), // Optional if it's for new entries
    user_id: z.number().optional(), // Optional if assigning automatically
    firstname: z
