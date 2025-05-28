@@ -51,7 +51,7 @@ export const deleteUser = async (formData: FormData) => {
 
 export const getUsers = async ({
    page = 1,
-   limit = 10,
+   limit = 5,
    keyword = '',
 }: {
    page?: number;

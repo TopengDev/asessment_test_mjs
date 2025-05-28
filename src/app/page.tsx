@@ -22,7 +22,7 @@ export default async function Home({
    const params = await searchParams;
 
    const page = parseInt(params?.page || '1');
-   const limit = parseInt(params?.limit || '10');
+   const limit = parseInt(params?.limit || '5');
 
    const usersResponse = await getUsers({
       page,
