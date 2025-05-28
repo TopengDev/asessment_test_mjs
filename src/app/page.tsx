@@ -1,3 +1,4 @@
+import SearchBar from '@/components/custom/searchBar';
 import { Button } from '@/components/ui/button';
 import {
    Table,
@@ -20,10 +21,12 @@ export default async function Home({ searchParams }: any) {
 
    const page = parseInt(params?.page || '1');
    const limit = parseInt(params?.limit || '5');
+   const keyword = params?.keyword || '';
 
    const usersResponse = await getUsers({
       page,
       limit,
+      keyword,
    });
 
    const users = usersResponse.data;
@@ -40,6 +43,7 @@ export default async function Home({ searchParams }: any) {
                   </Button>
                </Link>
             </div>
+            <SearchBar />
             <Table className="overflow-y-scroll">
                <TableCaption>
                   {' '}
@@ -116,7 +120,10 @@ export default async function Home({ searchParams }: any) {
             </Table>
             <div className="flex items-center justify-between mt-4 gap-4">
                <Link
-                  href={`?page=${Math.max(1, page - 1)}&limit=${limit}`}
+                  href={`?page=${Math.max(
+                     1,
+                     page - 1,
+                  )}&limit=${limit}&keyword=${keyword}`}
                   className={`py-2 px-4 flex items-center justify-center rounded-lg ${
                      page === 1
                         ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
@@ -130,7 +137,7 @@ export default async function Home({ searchParams }: any) {
                   href={`?page=${Math.min(
                      page + 1,
                      pageInfo.totalPages,
-                  )}&limit=${limit}`}
+                  )}&limit=${limit}&keyword=${keyword}`}
                   className={`py-2 px-4 flex items-center justify-center rounded-lg ${
                      page >= pageInfo.totalPages
                         ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
