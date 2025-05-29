@@ -15,6 +15,8 @@ Create a .env file and add these variables based on your setup
 
 ```bash
 npm install
+# or
+npm install --legacy-peer-deps
 ```
 
 ## Generate database migration file
